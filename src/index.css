@@ -50,7 +50,7 @@
     --input: 52 9% 82%;                  /* border.strong */
     --ring: 169 100% 26%;                /* border.focus (green/500) */
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 225 9% 9%;     /* sidebar.bg (ink/900) */
     --sidebar-foreground: 53 7% 75%;     /* sidebar.text */
@@ -72,42 +72,35 @@
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 47% 14%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222 47% 12%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 11%;
-
-    --secondary: 142 76% 42%;
-    --secondary-foreground: 222 47% 11%;
-
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 217 91% 60%;
-    --accent-foreground: 222 47% 11%;
-
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217 33% 22%;
-    --input: 217 33% 17%;
-    --ring: 217 91% 60%;
-
-    --sidebar-background: 222 47% 8%;
-    --sidebar-foreground: 210 40% 75%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 222 47% 14%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 20%;
-    --sidebar-ring: 217 91% 60%;
+    --background: 225 7% 11%;
+    --foreground: 60 33% 99%;
+    --card: 225 7% 14%;
+    --card-foreground: 60 33% 99%;
+    --popover: 225 7% 14%;
+    --popover-foreground: 60 33% 99%;
+    --primary: 20 38% 50%;
+    --primary-foreground: 60 33% 99%;
+    --primary-glow: 21 40% 31%;
+    --secondary: 225 7% 18%;
+    --secondary-foreground: 60 33% 99%;
+    --muted: 225 7% 19%;
+    --muted-foreground: 45 5% 70%;
+    --accent: 21 40% 25%;
+    --accent-foreground: 23 40% 92%;
+    --destructive: 0 61% 52%;
+    --destructive-foreground: 60 33% 99%;
+    --border: 225 7% 24%;
+    --input: 225 7% 24%;
+    --ring: 169 100% 35%;
+    --sidebar-background: 225 9% 7%;
+    --sidebar-foreground: 53 7% 75%;
+    --sidebar-primary: 60 33% 99%;
+    --sidebar-primary-foreground: 225 9% 9%;
+    --sidebar-accent: 220 8% 15%;
+    --sidebar-accent-foreground: 60 33% 99%;
+    --sidebar-border: 220 8% 15%;
+    --sidebar-ring: 169 100% 35%;
+    --sidebar-label: 167 57% 64%;
   }
 }
 
@@ -132,6 +125,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-family: Inter, system-ui, sans-serif;
+    line-height: 1.5;
   }
 
   #root {
@@ -141,6 +136,23 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
   }
 
   /* Smooth scrolling */
@@ -346,6 +358,21 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
+.loading-spinner-wordmark {
+  position: relative;
+  z-index: 2;
+  color: hsl(var(--foreground));
+  font-size: clamp(10px, 2vw, 16px);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+}
+
+.loading-spinner-wordmark strong {
+  color: hsl(var(--primary));
+  font-weight: 700;
+}
+
 .loading-spinner-message {
   margin: 0;
   font-size: 14px;
@@ -435,7 +462,7 @@
 }
 
 .dark .loading-spinner-progress {
-  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.5));
+  filter: drop-shadow(0 0 6px rgba(0, 135, 111, 0.5));
 }
 
 /* Light mode enhancements */
@@ -448,7 +475,7 @@
 }
 
 :not(.dark) .loading-spinner-progress {
-  filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.4));
+  filter: drop-shadow(0 0 5px rgba(153, 97, 69, 0.4));
 }
 
 /* Responsive */
@@ -500,7 +527,7 @@
 }
 
 .premium-card-gradient-blue {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #6FD8C1 0%, #00876F 100%);
 }
 
 .premium-card-gradient-orange {
@@ -508,11 +535,11 @@
 }
 
 .premium-card-gradient-violet {
-  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  background: linear-gradient(135deg, #996145 0%, #704630 100%);
 }
 
 .premium-card-gradient-navy {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #232529 0%, #141518 100%);
 }
 
 .premium-card-pattern {

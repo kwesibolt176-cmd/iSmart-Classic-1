@@ -1,7 +1,5 @@
-import React, { memo, useId, useEffect, useState } from 'react';
+import React, { memo, useId } from 'react';
 import { useTheme } from 'next-themes';
-import logoDark from '@/assets/images/loading-dark.png';
-import logoLight from '@/assets/images/loading.png';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'default' | 'large';
@@ -13,8 +11,6 @@ export const LoadingSpinner = memo(({ size = 'default', message = null }: Loadin
   const effectiveTheme = theme === 'system' ? systemTheme : theme;
   const uniqueId = useId();
   // Start with true since images are preloaded in HTML head
-  const [imageLoaded, setImageLoaded] = useState(true);
-  
   const sizeMap = {
     small: '48px',
     default: '64px',
@@ -24,31 +20,7 @@ export const LoadingSpinner = memo(({ size = 'default', message = null }: Loadin
   const imageSize = sizeMap[size] || sizeMap.default;
   const ringSize = `calc(${imageSize} + 44px)`;
 
-  const logoSrc = effectiveTheme === 'dark' ? logoDark : logoLight;
   const isDark = effectiveTheme === 'dark';
-
-  // Preload both images immediately when component mounts
-  useEffect(() => {
-    const preloadImages = () => {
-      const lightPng = new Image();
-      const darkPng = new Image();
-      lightPng.src = logoLight;
-      darkPng.src = logoDark;
-
-      // Check if current image is already cached/loaded
-      const checkImage = new Image();
-      checkImage.onload = () => setImageLoaded(true);
-      checkImage.onerror = () => setImageLoaded(true); // Show anyway on error
-      checkImage.src = logoSrc;
-
-      // If image is already cached, show it immediately
-      if (checkImage.complete || checkImage.naturalWidth > 0) {
-        setImageLoaded(true);
-      }
-    };
-
-    preloadImages();
-  }, [logoSrc]);
 
   return (
     <div className="loading-spinner-container">
@@ -64,20 +36,20 @@ export const LoadingSpinner = memo(({ size = 'default', message = null }: Loadin
         >
           <defs>
             <linearGradient id={`spinner-gradient-${uniqueId}`} x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="objectBoundingBox">
-              <stop offset="0%" stopColor="#2563eb" stopOpacity="0">
-                <animate attributeName="stop-color" values="#2563eb;#3b82f6;#22c55e;#3b82f6;#2563eb" dur="1.6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
+              <stop offset="0%" stopColor="#996145" stopOpacity="0">
+                <animate attributeName="stop-color" values="#996145;#704630;#00876F;#704630;#996145" dur="1.6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
               </stop>
-              <stop offset="20%" stopColor="#2563eb" stopOpacity={isDark ? '0.3' : '0.25'}>
-                <animate attributeName="stop-color" values="#2563eb;#3b82f6;#22c55e;#3b82f6;#2563eb" dur="1.6s" begin="0.1s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
+              <stop offset="20%" stopColor="#996145" stopOpacity={isDark ? '0.3' : '0.25'}>
+                <animate attributeName="stop-color" values="#996145;#704630;#00876F;#704630;#996145" dur="1.6s" begin="0.1s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
               </stop>
-              <stop offset="50%" stopColor="#2563eb" stopOpacity="1">
-                <animate attributeName="stop-color" values="#2563eb;#3b82f6;#22c55e;#3b82f6;#2563eb" dur="1.6s" begin="0.3s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
+              <stop offset="50%" stopColor="#996145" stopOpacity="1">
+                <animate attributeName="stop-color" values="#996145;#704630;#00876F;#704630;#996145" dur="1.6s" begin="0.3s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
               </stop>
-              <stop offset="80%" stopColor="#2563eb" stopOpacity={isDark ? '0.3' : '0.25'}>
-                <animate attributeName="stop-color" values="#2563eb;#3b82f6;#22c55e;#3b82f6;#2563eb" dur="1.6s" begin="0.5s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
+              <stop offset="80%" stopColor="#996145" stopOpacity={isDark ? '0.3' : '0.25'}>
+                <animate attributeName="stop-color" values="#996145;#704630;#00876F;#704630;#996145" dur="1.6s" begin="0.5s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
               </stop>
-              <stop offset="100%" stopColor="#2563eb" stopOpacity="0">
-                <animate attributeName="stop-color" values="#2563eb;#3b82f6;#22c55e;#3b82f6;#2563eb" dur="1.6s" begin="0.7s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
+              <stop offset="100%" stopColor="#996145" stopOpacity="0">
+                <animate attributeName="stop-color" values="#996145;#704630;#00876F;#704630;#996145" dur="1.6s" begin="0.7s" repeatCount="indefinite" keyTimes="0;0.2;0.5;0.8;1" />
               </stop>
             </linearGradient>
             <filter id={`glow-filter-${uniqueId}`}>
@@ -119,19 +91,9 @@ export const LoadingSpinner = memo(({ size = 'default', message = null }: Loadin
         {/* Logo container with elegant shadow */}
         <div className="loading-spinner-logo-wrapper" style={{ width: imageSize, height: imageSize }}>
           <div className="loading-spinner-logo-shine"></div>
-          <img
-            src={logoSrc}
-            alt="Loading"
-            className="loading-spinner-logo"
-            loading="eager"
-            decoding="async"
-            onLoad={() => setImageLoaded(true)}
-            onError={() => setImageLoaded(true)} // Show anyway if error
-            style={{
-              opacity: imageLoaded ? 1 : 0.5, // Show with reduced opacity while loading
-              transition: 'opacity 0.15s ease-in'
-            }}
-          />
+          <span className="loading-spinner-wordmark" aria-label="iSmartPay">
+            <span>iSmart</span><strong>Pay</strong>
+          </span>
         </div>
       </div>
       {message && (

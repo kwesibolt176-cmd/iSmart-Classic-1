@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import ismartPayLogo from "@/assets/ismartpay-logo.png";
 
 // Dynamic app URL based on current domain
 const getAppUrl = () => {
@@ -32,7 +31,9 @@ export const Landing = () => {
       <nav className="border-b border-border/50 bg-background/95 backdrop-blur-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 safe-area-inset">
           <div className="flex items-center justify-between h-14 sm:h-16">
-            <img src={ismartPayLogo} alt="iSmartPay" className="h-6 sm:h-8" />
+            <span className="text-xl font-semibold tracking-[-0.06em] text-foreground" aria-label="iSmartPay">
+              iSmart<span className="text-primary">Pay</span>
+            </span>
             <Button size="sm" onClick={goToApp}>
               Login
             </Button>
@@ -43,11 +44,9 @@ export const Landing = () => {
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center max-w-md mx-auto">
-          <img 
-            src={ismartPayLogo} 
-            alt="iSmartPay" 
-            className="h-12 sm:h-16 mx-auto mb-4 sm:mb-6" 
-          />
+          <div className="mb-4 text-4xl font-semibold tracking-[-0.07em] text-foreground sm:mb-6 sm:text-5xl" aria-label="iSmartPay">
+            iSmart<span className="text-primary">Pay</span>
+          </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Welcome to iSmartPay
           </h1>

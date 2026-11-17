@@ -18,7 +18,6 @@ import {
   getIndustriesForCategory,
   type BusinessTypeValue,
 } from "@/lib/business-taxonomy";
-import ismartPayLogo from "@/assets/ismartpay-logo.png";
 import { clearMerchantClientState, signOutMerchantPortal } from "@/lib/merchant-session";
 
 type PortalAuthResult = {
@@ -706,7 +705,9 @@ export const Auth = () => {
         <div className="bg-white border border-gray-200 shadow-sm p-6 sm:p-8 rounded-lg">
           {/* Logo */}
           <div className="flex justify-center mb-4 sm:mb-6">
-            <img src={ismartPayLogo} alt="iSmartPay" className="h-10 sm:h-12" />
+            <div className="text-3xl font-semibold tracking-[-0.07em] text-foreground sm:text-4xl" aria-label="iSmartPay">
+              iSmart<span className="text-primary">Pay</span>
+            </div>
           </div>
 
           {/* Title */}
