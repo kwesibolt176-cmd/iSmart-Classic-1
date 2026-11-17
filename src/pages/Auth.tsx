@@ -724,7 +724,7 @@ export const Auth = () => {
             {twoFactorToken ? "Two-Factor Verification"
               : resetStep === "email" ? "Forgot Password"
               : resetStep === "otp" ? "Verify Your Identity"
-              : resetStep === "newPassword" ? "Reset Password"
+              : resetStep === "newPassword" ? "Create a new password"
               : domainContext === "admin"
                 ? "Super Admin Portal"
                 : isSignUp
@@ -822,8 +822,9 @@ export const Auth = () => {
               {/* Step 3 — New Password */}
               {resetStep === "newPassword" && !resetSuccess && (
                 <>
-                  <p className="text-sm text-muted-foreground text-center">Create a new password for your account.</p>
-                  <div className="relative">
+                  <p className="text-sm text-muted-foreground text-center mb-7">Choose a password you have not used before.</p>
+                  <div className="relative text-left">
+                    <Label className="mb-2 block text-xs font-medium text-foreground">New password</Label>
                     <div className="absolute left-4 top-1/2 -translate-y-1/2">
                       <KeyRound className="h-5 w-5 text-muted-foreground" />
                     </div>
@@ -850,21 +851,19 @@ export const Auth = () => {
                       ))}
                     </div>
                   )}
-                  <div className="relative">
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <KeyRound className="h-5 w-5 text-muted-foreground" />
-                    </div>
+                  <div className="relative text-left">
+                    <Label className="mb-2 block text-xs font-medium text-foreground">Confirm new password</Label>
                     <Input
                       type={showNewPassword ? "text" : "password"}
-                      placeholder="Confirm new password"
+                      placeholder="Re-enter password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       autoComplete="new-password"
-                      className="h-12 pl-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary"
+                      className="h-12 rounded-xl border-border bg-card focus:bg-card focus:border-primary"
                     />
                   </div>
-                  <Button onClick={handleResetPassword} className="w-full h-12 rounded-lg text-base font-semibold bg-primary hover:bg-primary-glow" disabled={isLoading || !newPassword || !confirmPassword || newPassword !== confirmPassword}>
-                    {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Reset Password"}
+                  <Button onClick={handleResetPassword} className="w-full h-12 rounded-full text-sm font-medium bg-primary hover:bg-primary-glow" disabled={isLoading || !newPassword || !confirmPassword || newPassword !== confirmPassword}>
+                    {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Save password and sign in"}
                   </Button>
                   <Button variant="ghost" onClick={cancelReset} className="w-full">Cancel</Button>
                 </>
