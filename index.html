@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>iSmartPay - Simplifying Collections and Payments Across Africa</title>
+    <meta name="description" content="Join iSmartPay to simplify transactions for merchants and customers throughout the continent. Fast, secure, and built for growth.">
+    <meta name="author" content="iSmartPay" />
+    <meta name="keywords" content="POS system, point of sale, African business, payments, collections, mobile money, business management, Ghana, Africa">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="bingbot" content="noindex, nofollow" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "iSmartPay",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Complete payment and collections platform for African businesses. Fast, secure, and built for growth.",
+      "url": "https://ismartpay.ismartghana.com",
+      "author": {
+        "@type": "Organization",
+        "name": "iSmartPay",
+        "url": "https://ismartpay.ismartghana.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GHS",
+        "description": "Free to get started"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1000",
+        "bestRating": "5"
+      }
+    }
+    </script>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#996145" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="iSmartPay" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ismartpay.ismartghana.com/" />
+    <meta property="og:site_name" content="iSmartPay" />
+    <meta property="og:locale" content="en_GH" />
+    <meta property="og:image" content="https://ismartpay.ismartghana.com/wp-content/uploads/2025/10/Front-cover-image-website-iSmartPay.png">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="iSmartPay - Payment Solutions for African Businesses" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ismartpay" />
+    <meta name="twitter:image" content="https://ismartpay.ismartghana.com/wp-content/uploads/2025/10/Front-cover-image-website-iSmartPay.png">
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta property="og:title" content="iSmartPay - Simplifying Collections and Payments Across Africa">
+  <meta name="twitter:title" content="iSmartPay - Simplifying Collections and Payments Across Africa">
+  <meta property="og:description" content="Join iSmartPay to simplify transactions for merchants and customers throughout the continent. Fast, secure, and built for growth.">
+  <meta name="twitter:description" content="Join iSmartPay to simplify transactions for merchants and customers throughout the continent. Fast, secure, and built for growth.">
+</head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="module">
+      (() => {
+        const host = window.location.hostname;
+        const isPreview =
+          host === "localhost" ||
+          host === "127.0.0.1" ||
+          host.endsWith(".lovableproject.com") ||
+          (host.startsWith("id-preview--") && host.endsWith(".lovable.app"));
+
+        // Version key - increment to force cache clear on all browsers
+        const CACHE_VERSION = "v10";
+        const flagKey = `__ismartpay_sw_cleared_${CACHE_VERSION}__`;
+
+
+        const cleanupServiceWorkers = async () => {
+          const results = { sw: 0, caches: 0 };
+          
+          try {
+            if ("serviceWorker" in navigator) {
+              const regs = await navigator.serviceWorker.getRegistrations();
+              await Promise.all((regs || []).map((r) => r.unregister()));
+              results.sw = regs?.length || 0;
+            }
+          } catch (e) {
+            console.warn("[SW Cleanup] Failed to unregister service workers:", e);
+          }
+
+          try {
+            if ("caches" in window) {
+              const keys = await caches.keys();
+              await Promise.all(keys.map((k) => caches.delete(k)));
+              results.caches = keys.length;
+            }
+          } catch (e) {
+            console.warn("[SW Cleanup] Failed to clear caches:", e);
+          }
+
+          return results;
+        };
+
+        // Always clean up in preview environments
+        if (isPreview) {
+          if (!sessionStorage.getItem(flagKey)) {
+            sessionStorage.setItem(flagKey, "1");
+            
+            cleanupServiceWorkers()
+              .then((results) => {
+                console.log(`[SW Cleanup] Cleared ${results.sw} workers, ${results.caches} caches`);
+              })
+              .finally(() => {
+                const url = new URL(window.location.href);
+                url.searchParams.set("sw-clear", Date.now().toString());
+                window.location.replace(url.toString());
+              });
+            return;
+          }
+        }
+
+        // For production: check localStorage for version changes
+        const storedVersion = localStorage.getItem("__ismartpay_cache_version__");
+        if (storedVersion !== CACHE_VERSION) {
+          localStorage.setItem("__ismartpay_cache_version__", CACHE_VERSION);
+          
+          cleanupServiceWorkers()
+            .then((results) => {
+              if (results.sw > 0 || results.caches > 0) {
+                console.log(`[SW Cleanup] Production cleanup: ${results.sw} workers, ${results.caches} caches`);
+                window.location.reload();
+              }
+            })
+            .catch(() => {
+              // Continue loading even if cleanup fails
+            });
+        }
+
+      })();
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+
+  </body>
+</html>

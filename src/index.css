@@ -1,0 +1,547 @@
+@import "./tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system - iSmartPay (Figma redesign)
+   Colors: bronze primary, warm neutrals, ink sidebar, green/amber/red status.
+   Raw token values live in tokens.css; HSL channels below must match them.
+*/
+
+@layer base {
+  :root {
+    /* Values derive from src/tokens.css (Figma export). Channels are HSL for Tailwind. */
+    --background: 60 14% 97%;            /* bg.page */
+    --foreground: 225 7% 11%;            /* ink/800 */
+
+    --card: 60 33% 99%;                  /* surface.default */
+    --card-foreground: 225 7% 11%;
+
+    --popover: 60 33% 99%;
+    --popover-foreground: 225 7% 11%;
+
+    /* Bronze: accent.default */
+    --primary: 20 38% 44%;
+    --primary-foreground: 60 33% 99%;
+    --primary-glow: 21 40% 31%;          /* accent.hover (bronze/700) */
+
+    /* Secondary button: white surface, ink text */
+    --secondary: 60 33% 99%;
+    --secondary-foreground: 225 7% 11%;
+
+    --muted: 45 12% 93%;                 /* bg.sunken */
+    --muted-foreground: 45 2% 31%;       /* text.muted */
+
+    --accent: 23 40% 92%;                /* accent.subtle */
+    --accent-foreground: 21 40% 31%;     /* accent.hover */
+
+    --destructive: 0 61% 52%;            /* danger.default */
+    --destructive-foreground: 60 33% 99%;
+
+    --success: 170 100% 21%;             /* success.default */
+    --success-subtle: 163 49% 88%;       /* success.subtle */
+    --warning: 41 96% 54%;               /* warning.default */
+    --warning-subtle: 43 92% 90%;        /* warning.subtle */
+    --warning-foreground: 39 100% 27%;   /* text.warning (amber/800) */
+    --danger-subtle: 0 62% 93%;          /* danger.subtle */
+
+    --border: 51 12% 89%;                /* border.default */
+    --input: 52 9% 82%;                  /* border.strong */
+    --ring: 169 100% 26%;                /* border.focus (green/500) */
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 225 9% 9%;     /* sidebar.bg (ink/900) */
+    --sidebar-foreground: 53 7% 75%;     /* sidebar.text */
+    --sidebar-primary: 60 33% 99%;       /* sidebar.text-active */
+    --sidebar-primary-foreground: 225 9% 9%;
+    --sidebar-accent: 220 8% 15%;        /* sidebar.active (ink/700) */
+    --sidebar-accent-foreground: 60 33% 99%;
+    --sidebar-border: 220 8% 15%;
+    --sidebar-ring: 169 100% 26%;
+    --sidebar-label: 167 57% 64%;        /* sidebar.label (green/300) */
+
+    /* Design Tokens */
+    --shadow-card: 0 4px 16px hsl(225 7% 11% / 0.06), 0 2px 4px hsl(225 7% 11% / 0.03);
+    --shadow-soft: 0 2px 8px hsl(225 7% 11% / 0.05);
+
+    /* Transitions */
+    --transition-smooth: all 0.25s ease;
+    --transition-fast: all 0.1s ease;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 142 76% 42%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 22%;
+    --input: 217 33% 17%;
+    --ring: 217 91% 60%;
+
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 75%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 222 47% 14%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 20%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100%;
+    min-height: 100dvh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  #root {
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* Dynamic viewport height for mobile */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
+  }
+
+  /* Safe area insets for notched devices */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+
+  /* Utility class for safe area aware containers */
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* Prevent text selection on interactive elements for mobile */
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Improve touch scrolling performance */
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Custom scrollbar class to hide visual scrollbar while maintaining scroll functionality */
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+  }
+
+  /* Global Responsive Spacing Utilities */
+  .page-container {
+    @apply p-4 sm:p-6 lg:p-8 max-w-[1400px] mx-auto;
+  }
+
+  /* Responsive font scaling for ultra-small devices */
+  @media (max-width: 380px) {
+    h1 {
+      @apply text-xl !important;
+    }
+    .text-2xl {
+      @apply text-lg !important;
+    }
+    .text-3xl {
+      @apply text-xl !important;
+    }
+    .text-4xl {
+      @apply text-2xl !important;
+    }
+    .p-6 {
+      @apply p-4 !important;
+    }
+    .sm\:p-8 {
+      @apply p-4 !important;
+    }
+  }
+}
+
+/* -------------------------------------------------------------
+ * Loading Spinner Component Styles (Ported from Ismartpay)
+ * ------------------------------------------------------------- */
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 50vh;
+}
+
+.loading-spinner-wrapper {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* Outer aura/glow effect */
+.loading-spinner-aura {
+  grid-area: 1 / 1;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  border-radius: 50%;
+  background: radial-gradient(circle,
+      hsl(var(--primary)) 0%,
+      transparent 65%);
+  opacity: 0.12;
+  z-index: 0;
+  filter: blur(16px);
+}
+
+/* Rotating ring */
+.loading-spinner-ring {
+  grid-area: 1 / 1;
+  z-index: 1;
+  transform-origin: center center;
+  animation: spin 1.6s linear infinite;
+  will-change: transform;
+}
+
+/* Track circle */
+.loading-spinner-track {
+  transition: opacity 0.25s ease;
+}
+
+/* Progress arc */
+.loading-spinner-progress {
+  transform-origin: center;
+  transform: rotate(-90deg);
+  animation: progress 1.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  transition: opacity 0.25s ease;
+}
+
+/* Logo container */
+.loading-spinner-logo-wrapper {
+  grid-area: 1 / 1;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--card));
+  border-radius: 50%;
+  padding: 14px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 2px 10px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Logo shine effect */
+.loading-spinner-logo-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.1) 100%);
+  opacity: 0.6;
+  animation: shine-rotate 3s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.loading-spinner-logo-wrapper picture {
+  display: contents;
+}
+
+.loading-spinner-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.25s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.loading-spinner-message {
+  margin: 0;
+  font-size: 14px;
+  color: hsl(var(--muted-foreground));
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color 0.25s ease;
+  animation: message-fade 2.5s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes progress {
+  0% {
+    stroke-dashoffset: 283;
+    opacity: 0.8;
+  }
+
+  50% {
+    stroke-dashoffset: 50;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 283;
+    opacity: 0.8;
+  }
+}
+
+@keyframes shine-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes message-fade {
+
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Dark mode enhancements */
+.dark .loading-spinner-logo-wrapper {
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 2px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  background: hsl(var(--card));
+}
+
+.dark .loading-spinner-aura {
+  opacity: 0.18;
+  filter: blur(20px);
+}
+
+.dark .loading-spinner-track {
+  opacity: 0.1;
+}
+
+.dark .loading-spinner-logo-shine {
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.08) 100%);
+  opacity: 0.4;
+}
+
+.dark .loading-spinner-progress {
+  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.5));
+}
+
+/* Light mode enhancements */
+:not(.dark) .loading-spinner-logo-wrapper {
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 2px 10px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+:not(.dark) .loading-spinner-progress {
+  filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.4));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .loading-spinner-container {
+    gap: 16px;
+  }
+
+  .loading-spinner-message {
+    font-size: 13px;
+  }
+
+  .loading-spinner-logo-wrapper {
+    padding: 8px;
+  }
+
+  .loading-spinner-aura {
+    filter: blur(12px);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner-ring {
+    animation: none;
+  }
+
+  .loading-spinner-progress {
+    animation: none;
+    stroke-dashoffset: 140;
+    opacity: 0.9;
+  }
+
+  .loading-spinner-aura,
+  .loading-spinner-logo-wrapper,
+  .loading-spinner-logo-shine,
+  .loading-spinner-message {
+    animation: none;
+  }
+
+  .loading-spinner-logo-wrapper {
+    transform: none;
+  }
+}
+
+/* Premium Card Styles */
+.premium-card-gradient {
+  background: linear-gradient(135deg, #4ade80 0%, #2dd4bf 100%);
+}
+
+.premium-card-gradient-blue {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.premium-card-gradient-orange {
+  background: linear-gradient(135deg, #fb923c 0%, #f43f5e 100%);
+}
+
+.premium-card-gradient-violet {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+}
+
+.premium-card-gradient-navy {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+}
+
+.premium-card-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.premium-card-circle-1 {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 180px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+}
+
+.premium-card-circle-2 {
+  position: absolute;
+  bottom: -10%;
+  right: 15%;
+  width: 140px;
+  height: 140px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}

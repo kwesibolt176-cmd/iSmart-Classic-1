@@ -1,0 +1,40 @@
+project_id = "afzsrckektuhhwqelleu"
+
+[functions.ismart-callback]
+verify_jwt = false
+
+[functions.iverify]
+verify_jwt = false
+
+[functions.ismart-uploads]
+verify_jwt = false
+
+[functions.merchant-auth]
+verify_jwt = false
+
+[functions.merchant-api]
+verify_jwt = false
+
+[functions.merchant-binary]
+verify_jwt = false
+
+[functions.reconcile-merchant-transactions]
+verify_jwt = false
+
+[functions.generate-product-image]
+verify_jwt = false
+
+[functions.analyze-product-image]
+verify_jwt = false
+
+[functions.polish-product-image]
+verify_jwt = false
+
+[functions.manage-ai-secret]
+verify_jwt = false
+
+[functions.manage-imail-secret]
+verify_jwt = false
+
+[functions.resolve-payment-link]
+verify_jwt = false

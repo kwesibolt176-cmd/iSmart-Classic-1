@@ -1,0 +1,77 @@
+/* Generated from Figma token exports (Primitives/, Color/, Spacing/). */
+/* Hex values below are the source of truth; HSL channel vars in index.css derive from them. */
+:root {
+  --white: #FEFEFD;
+  --bronze-100: #F3E9E3;
+  --bronze-500: #996145;
+  --bronze-700: #704630;
+  --green-100: #D3F0E8;
+  --green-300: #6FD8C1;
+  --green-500: #00876F;
+  --green-600: #006D5B;
+  --ink-700: #232529;
+  --ink-800: #1A1B1E;
+  --ink-900: #141518;
+  --ink-950: #0B0B0B;
+  --neutral-50: #F9F9F7;
+  --neutral-75: #F4F4F1;
+  --neutral-100: #F0EFEC;
+  --neutral-150: #ECEBE7;
+  --neutral-200: #E6E5DF;
+  --neutral-250: #D4D3CC;
+  --neutral-300: #C4C3BB;
+  --neutral-400: #8B9096;
+  --neutral-600: #52514E;
+  --amber-100: #FDF0CF;
+  --amber-500: #FAB219;
+  --amber-800: #8A5A00;
+  --red-100: #F8E1E1;
+  --red-500: #D03B3B;
+
+  --color-bg-page: #F9F9F7;
+  --color-bg-sunken: #F0EFEC;
+  --color-surface-default: #FEFEFD;
+  --color-surface-secondary: #F4F4F1;
+  --color-surface-tertiary: #ECEBE7;
+  --color-sidebar-bg: #141518;
+  --color-sidebar-active: #232529;
+  --color-sidebar-text: #C4C3BB;
+  --color-sidebar-text-active: #FEFEFD;
+  --color-sidebar-label: #6FD8C1;
+  --color-text-primary: #0B0B0B;
+  --color-text-muted: #52514E;
+  --color-text-subtle: #8B9096;
+  --color-text-on-accent: #FEFEFD;
+  --color-text-accent: #996145;
+  --color-text-success: #006D5B;
+  --color-text-warning: #8A5A00;
+  --color-text-danger: #D03B3B;
+  --color-border-default: #E6E5DF;
+  --color-border-strong: #D4D3CC;
+  --color-border-focus: #00876F;
+  --color-accent-default: #996145;
+  --color-accent-hover: #704630;
+  --color-accent-subtle: #F3E9E3;
+  --color-success-default: #006D5B;
+  --color-success-subtle: #D3F0E8;
+  --color-warning-default: #FAB219;
+  --color-warning-subtle: #FDF0CF;
+  --color-danger-default: #D03B3B;
+  --color-danger-subtle: #F8E1E1;
+
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+}

@@ -1,0 +1,1 @@
+ALTER TABLE public.business_profiles ADD COLUMN opening_time TEXT DEFAULT '09:00', ADD COLUMN closing_time TEXT DEFAULT '21:00';

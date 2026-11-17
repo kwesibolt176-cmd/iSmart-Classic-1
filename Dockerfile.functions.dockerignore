@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.env
+*.log
+vite.config.ts.timestamp-*.mjs
+.kiro
+.workspace
+docs
+project-documentation
+supabase/migrations

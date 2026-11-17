@@ -1,0 +1,9 @@
+FROM supabase/edge-runtime:v1.74.0
+
+# Generic self-hosted-Supabase dispatcher (routes /functions/v1/<name> requests
+# to a per-function worker at /home/deno/functions/<name>). Not app code -
+# came from the supabase self-host setup.sh template, kept here so the image
+# is self-contained instead of depending on a host bind mount for it.
+COPY docker/edge-runtime-main /home/deno/functions/main
+
+COPY supabase/functions /home/deno/functions
