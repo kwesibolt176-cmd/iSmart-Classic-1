@@ -666,15 +666,15 @@ export const Auth = () => {
 
   if (domainContext === "admin" && accessDenied) {
     return (
-      <div className="min-h-screen min-h-[100dvh] flex items-center justify-center bg-[#f0f4f8] p-4">
+      <div className="min-h-screen min-h-[100dvh] flex items-center justify-center bg-background p-4">
         <div className="w-full max-w-md">
-          <div className="bg-white border border-gray-200 shadow-sm p-8 rounded-lg">
+          <div className="bg-white border border-border shadow-sm p-8 rounded-lg">
             <div className="text-center">
               <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
                 <ShieldAlert className="h-8 w-8 text-red-600" />
               </div>
               <h2 className="text-2xl font-bold text-red-600 mb-2">Access Denied</h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-muted-foreground mb-6">
                 You do not have super admin privileges to access this platform.
               </p>
               <Button onClick={handleSignOut} variant="outline" className="w-full h-12 rounded-lg">
@@ -690,28 +690,37 @@ export const Auth = () => {
   // Show loading while checking role
   if (checkingRole) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f0f4f8]">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-[#1B2B65]" />
-          <p className="text-sm text-gray-600">Verifying access...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">Verifying access...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex items-center justify-center bg-[#f0f4f8] p-4 sm:p-6">
-      <div className="w-full max-w-md">
-        <div className="bg-white border border-gray-200 shadow-sm p-6 sm:p-8 rounded-lg">
+    <div className="auth-shell min-h-screen min-h-[100dvh]">
+      <aside className="auth-visual-panel">
+        <div className="auth-panel-logo" aria-label="iSmartPay">
+          iSmart<span>Pay</span>
+        </div>
+        <div className="auth-panel-message">
+          <h2>Choose the smart way to pay.</h2>
+          <p>Sell, collect, send and settle from one account, built for businesses in Ghana.</p>
+        </div>
+      </aside>
+      <main className="auth-form-panel">
+        <div className="auth-card w-full max-w-[420px]">
           {/* Logo */}
-          <div className="flex justify-center mb-4 sm:mb-6">
+          <div className="flex justify-center mb-6 sm:mb-8">
             <div className="text-3xl font-semibold tracking-[-0.07em] text-foreground sm:text-4xl" aria-label="iSmartPay">
               iSmart<span className="text-primary">Pay</span>
             </div>
           </div>
 
           {/* Title */}
-          <h1 className="text-xl sm:text-2xl font-bold text-center text-gray-900 mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-[28px] font-semibold tracking-[-0.04em] text-center text-foreground mb-2">
             {twoFactorToken ? "Two-Factor Verification"
               : resetStep === "email" ? "Forgot Password"
               : resetStep === "otp" ? "Verify Your Identity"
@@ -725,7 +734,7 @@ export const Auth = () => {
 
           {twoFactorToken && (
             <div className="space-y-4">
-              <p className="text-sm text-gray-600 text-center">
+              <p className="text-sm text-muted-foreground text-center">
                 Enter the 6-digit code from your authenticator app to finish signing in.
               </p>
               <Input
@@ -737,7 +746,7 @@ export const Auth = () => {
                 maxLength={6}
                 onChange={(event) => setTwoFactorCode(event.target.value.replace(/\D/g, "").slice(0, 6))}
                 autoFocus
-                className="h-14 text-center text-2xl font-mono tracking-[0.5em] rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600"
+                className="h-14 text-center text-2xl font-mono tracking-[0.5em] rounded-lg border-border bg-card focus:bg-card focus:border-primary"
               />
               <Button onClick={verifyTwoFactor} className="w-full h-12" disabled={isLoading || twoFactorCode.length !== 6}>
                 {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Verify and Sign In"}
@@ -755,15 +764,15 @@ export const Auth = () => {
 
           {/* ── Password Reset Flow (3 steps) ── */}
           {!twoFactorToken && showResetForm && (
-            <div className="space-y-4">
+            <div className="space-y-4 text-center">
 
               {/* Step 1 — Email */}
               {resetStep === "email" && (
                 <>
-                  <p className="text-sm text-gray-600 text-center">Enter your email and we'll send you a 6-digit code.</p>
+                  <p className="text-sm text-muted-foreground text-center">Enter your email and we'll send you a 6-digit code.</p>
                   <div className="relative">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <Mail className="h-5 w-5 text-gray-400" />
+                      <Mail className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <Input
                       type="email"
@@ -775,10 +784,10 @@ export const Auth = () => {
                       spellCheck={false}
                       inputMode="email"
                       required
-                      className="h-12 pl-12 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600 transition-colors"
+                      className="h-12 pl-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary transition-colors"
                     />
                   </div>
-                  <Button onClick={handleRequestOTP} className="w-full h-12 rounded-lg text-base font-semibold bg-blue-600 hover:bg-blue-700" disabled={isLoading}>
+                  <Button onClick={handleRequestOTP} className="w-full h-12 rounded-lg text-base font-semibold bg-primary hover:bg-primary-glow" disabled={isLoading}>
                     {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Send Code"}
                   </Button>
                   <Button variant="ghost" onClick={cancelReset} className="w-full">Back to Sign In</Button>
@@ -789,10 +798,10 @@ export const Auth = () => {
               {resetStep === "otp" && (
                 <>
                   <div className="text-center space-y-1">
-                    <div className="mx-auto w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
-                      <KeyRound className="h-6 w-6 text-blue-600" />
+                    <div className="mx-auto w-12 h-12 rounded-full bg-accent flex items-center justify-center mb-2">
+                      <KeyRound className="h-6 w-6 text-foreground" />
                     </div>
-                    <p className="text-sm text-gray-600">Enter the 6-digit code sent to <strong>{resetEmail}</strong></p>
+                    <p className="text-sm text-muted-foreground">Enter the 6-digit code sent to <strong>{resetEmail}</strong></p>
                   </div>
                   <Input
                     type="text"
@@ -801,9 +810,9 @@ export const Auth = () => {
                     maxLength={6}
                     onChange={(e) => setResetOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
                     autoFocus
-                    className="h-14 text-center text-2xl font-mono tracking-[0.5em] rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600"
+                    className="h-14 text-center text-2xl font-mono tracking-[0.5em] rounded-lg border-border bg-card focus:bg-card focus:border-primary"
                   />
-                  <Button onClick={handleConfirmOTP} className="w-full h-12 rounded-lg text-base font-semibold bg-blue-600 hover:bg-blue-700" disabled={isLoading || resetOtp.length !== 6}>
+                  <Button onClick={handleConfirmOTP} className="w-full h-12 rounded-lg text-base font-semibold bg-primary hover:bg-primary-glow" disabled={isLoading || resetOtp.length !== 6}>
                     {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Verify Code"}
                   </Button>
                   <Button variant="ghost" onClick={() => setResetStep("email")} className="w-full">Back</Button>
@@ -813,10 +822,10 @@ export const Auth = () => {
               {/* Step 3 — New Password */}
               {resetStep === "newPassword" && !resetSuccess && (
                 <>
-                  <p className="text-sm text-gray-600 text-center">Create a new password for your account.</p>
+                  <p className="text-sm text-muted-foreground text-center">Create a new password for your account.</p>
                   <div className="relative">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <KeyRound className="h-5 w-5 text-gray-400" />
+                      <KeyRound className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <Input
                       type={showNewPassword ? "text" : "password"}
@@ -825,9 +834,9 @@ export const Auth = () => {
                       onChange={(e) => setNewPassword(e.target.value)}
                       autoFocus
                       autoComplete="new-password"
-                      className="h-12 pl-12 pr-12 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600"
+                      className="h-12 pl-12 pr-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary"
                     />
-                    <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" onClick={() => setShowNewPassword(!showNewPassword)}>
+                    <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground" onClick={() => setShowNewPassword(!showNewPassword)}>
                       {showNewPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                   </div>
@@ -835,15 +844,15 @@ export const Auth = () => {
                     <div className="space-y-1 px-1">
                       {newPasswordChecks.map((check) => (
                         <div key={check.label} className="flex items-center gap-1.5 text-xs">
-                          {check.met ? <CheckCircle2 className="h-3 w-3 text-green-600 shrink-0" /> : <XCircle className="h-3 w-3 text-destructive shrink-0" />}
-                          <span className={check.met ? "text-green-600" : "text-muted-foreground"}>{check.label}</span>
+                          {check.met ? <CheckCircle2 className="h-3 w-3 text-success shrink-0" /> : <XCircle className="h-3 w-3 text-destructive shrink-0" />}
+                          <span className={check.met ? "text-success" : "text-muted-foreground"}>{check.label}</span>
                         </div>
                       ))}
                     </div>
                   )}
                   <div className="relative">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <KeyRound className="h-5 w-5 text-gray-400" />
+                      <KeyRound className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <Input
                       type={showNewPassword ? "text" : "password"}
@@ -851,10 +860,10 @@ export const Auth = () => {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       autoComplete="new-password"
-                      className="h-12 pl-12 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600"
+                      className="h-12 pl-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary"
                     />
                   </div>
-                  <Button onClick={handleResetPassword} className="w-full h-12 rounded-lg text-base font-semibold bg-blue-600 hover:bg-blue-700" disabled={isLoading || !newPassword || !confirmPassword || newPassword !== confirmPassword}>
+                  <Button onClick={handleResetPassword} className="w-full h-12 rounded-lg text-base font-semibold bg-primary hover:bg-primary-glow" disabled={isLoading || !newPassword || !confirmPassword || newPassword !== confirmPassword}>
                     {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Reset Password"}
                   </Button>
                   <Button variant="ghost" onClick={cancelReset} className="w-full">Cancel</Button>
@@ -864,11 +873,11 @@ export const Auth = () => {
               {/* Success */}
               {resetSuccess && (
                 <div className="text-center space-y-3 py-4">
-                  <div className="mx-auto w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
-                    <CheckCircle2 className="h-7 w-7 text-green-600" />
+                  <div className="mx-auto w-14 h-14 rounded-full bg-success-subtle flex items-center justify-center">
+                    <CheckCircle2 className="h-7 w-7 text-success" />
                   </div>
-                  <p className="font-semibold text-gray-900">Password Reset!</p>
-                  <p className="text-sm text-gray-600">Redirecting you to sign in...</p>
+                  <p className="font-semibold text-foreground">Password Reset!</p>
+                  <p className="text-sm text-muted-foreground">Redirecting you to sign in...</p>
                 </div>
               )}
             </div>
@@ -877,14 +886,14 @@ export const Auth = () => {
           {!twoFactorToken && !showResetForm && (<>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 text-left">
               {/* Registration fields */}
               {isSignUp && domainContext !== "admin" && (
                 <>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="relative">
                       <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                        <User className="h-5 w-5 text-gray-400" />
+                        <User className="h-5 w-5 text-muted-foreground" />
                       </div>
                       <Input
                         type="text"
@@ -892,7 +901,7 @@ export const Auth = () => {
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
-                        className="h-12 pl-12 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600 transition-colors"
+                        className="h-12 pl-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary transition-colors"
                       />
                     </div>
                     <div className="relative">
@@ -902,7 +911,7 @@ export const Auth = () => {
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required
-                        className="h-12 px-4 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600 transition-colors"
+                        className="h-12 px-4 rounded-lg border-border bg-card focus:bg-card focus:border-primary transition-colors"
                       />
                     </div>
                   </div>
@@ -921,7 +930,7 @@ export const Auth = () => {
                       </p>
                     )}
                     {phoneNumber && isValidPhone && (
-                      <p className="text-xs text-green-600 mt-1 ml-1 flex items-center gap-1">
+                      <p className="text-xs text-success mt-1 ml-1 flex items-center gap-1">
                         <CheckCircle2 className="h-3 w-3" /> Will be sent as {formatPhoneNumber(phoneNumber.trim(), 'international')}
                       </p>
                     )}
@@ -929,7 +938,7 @@ export const Auth = () => {
 
                   <div className="relative">
                     <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <Building2 className="h-5 w-5 text-gray-400" />
+                      <Building2 className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <Input
                       type="text"
@@ -937,14 +946,14 @@ export const Auth = () => {
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
                       required
-                      className="h-12 pl-12 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600 transition-colors"
+                      className="h-12 pl-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary transition-colors"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">Business Type</Label>
                     <Select value={businessType} onValueChange={(v) => setBusinessType(v as BusinessTypeValue)}>
-                      <SelectTrigger className="h-12 rounded-lg border-gray-200 bg-gray-50">
+                      <SelectTrigger className="h-12 rounded-lg border-border bg-card">
                         <SelectValue placeholder="Select your registered legal form" />
                       </SelectTrigger>
                       <SelectContent className="z-50">
@@ -962,7 +971,7 @@ export const Auth = () => {
                         value={businessCategory}
                         onValueChange={(v) => { setBusinessCategory(v); setBusinessIndustry(""); }}
                       >
-                        <SelectTrigger className="h-12 rounded-lg border-gray-200 bg-gray-50">
+                        <SelectTrigger className="h-12 rounded-lg border-border bg-card">
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent className="z-50">
@@ -980,7 +989,7 @@ export const Auth = () => {
                         onValueChange={setBusinessIndustry}
                         disabled={!businessCategory}
                       >
-                        <SelectTrigger className="h-12 rounded-lg border-gray-200 bg-gray-50">
+                        <SelectTrigger className="h-12 rounded-lg border-border bg-card">
                           <SelectValue placeholder={businessCategory ? "Select industry" : "Select category first"} />
                         </SelectTrigger>
                         <SelectContent className="z-50">
@@ -997,7 +1006,7 @@ export const Auth = () => {
               {/* Email Input */}
               <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                  <Mail className="h-5 w-5 text-muted-foreground" />
                 </div>
                 <Input
                   type="email"
@@ -1009,14 +1018,14 @@ export const Auth = () => {
                   spellCheck={false}
                   inputMode="email"
                   required
-                  className="h-12 pl-12 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600 transition-colors"
+                  className="h-12 pl-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary transition-colors"
                 />
               </div>
 
               {/* Password Input */}
               <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                  <KeyRound className="h-5 w-5 text-gray-400" />
+                  <KeyRound className="h-5 w-5 text-muted-foreground" />
                 </div>
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -1024,11 +1033,11 @@ export const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="h-12 pl-12 pr-12 rounded-lg border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-600 transition-colors"
+                  className="h-12 pl-12 pr-12 rounded-lg border-border bg-card focus:bg-card focus:border-primary transition-colors"
                 />
                 <button
                   type="button"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -1041,11 +1050,11 @@ export const Auth = () => {
                   {passwordChecks.map((check) => (
                     <div key={check.label} className="flex items-center gap-1.5 text-xs">
                       {check.met ? (
-                        <CheckCircle2 className="h-3 w-3 text-green-600 shrink-0" />
+                        <CheckCircle2 className="h-3 w-3 text-success shrink-0" />
                       ) : (
                         <XCircle className="h-3 w-3 text-destructive shrink-0" />
                       )}
-                      <span className={check.met ? "text-green-600" : "text-muted-foreground"}>
+                      <span className={check.met ? "text-success" : "text-muted-foreground"}>
                         {check.label}
                       </span>
                     </div>
@@ -1058,7 +1067,7 @@ export const Auth = () => {
                 <div className="text-center">
                   <button
                     type="button"
-                    className="text-sm text-blue-600 hover:underline"
+                    className="text-sm text-foreground hover:underline"
                     onClick={() => { setResetEmail(email); setResetStep("email"); }}
                   >
                     Forgot Password?
@@ -1069,7 +1078,7 @@ export const Auth = () => {
               {/* Sign In Button */}
               <Button
                 type="submit"
-                className="w-full h-12 rounded-lg text-base font-semibold bg-blue-600 hover:bg-blue-700 transition-colors"
+                className="w-full h-12 rounded-lg text-base font-semibold bg-primary hover:bg-primary-glow transition-colors"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -1082,11 +1091,11 @@ export const Auth = () => {
 
             {!isSignUp && domainContext !== "admin" && (
               <div className="mt-4 space-y-3">
-                <div className="flex items-center gap-3 text-xs text-gray-400">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
                   <span className="h-px flex-1 bg-gray-200" />or<span className="h-px flex-1 bg-gray-200" />
                 </div>
                 {phoneLoginOpen ? (
-                  <div className="space-y-3 rounded-lg border border-gray-200 p-3">
+                  <div className="space-y-3 rounded-xl border border-border bg-muted/30 p-3">
                     <PhoneInput
                       value={phoneLoginNumber}
                       onChange={setPhoneLoginNumber}
@@ -1140,7 +1149,7 @@ export const Auth = () => {
             {domainContext !== "admin" && (
               <>
                 <div className="my-4 sm:my-6 text-center">
-                  <span className="text-xs sm:text-sm text-gray-500">
+                  <span className="text-xs sm:text-sm text-muted-foreground">
                     {isSignUp ? "Already have an account?" : "Don't have an account?"}
                   </span>
                 </div>
@@ -1148,7 +1157,7 @@ export const Auth = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full h-11 sm:h-12 rounded-lg text-sm sm:text-base font-semibold border border-green-600 text-white bg-green-600 hover:bg-green-700 transition-colors"
+                  className="w-full h-11 sm:h-12 rounded-lg text-sm sm:text-base font-semibold border border-primary text-primary-foreground bg-primary hover:bg-primary-glow transition-colors"
                   onClick={() => setIsSignUp(!isSignUp)}
                 >
                   {isSignUp ? "Sign In" : "Create New Account"}
@@ -1157,7 +1166,7 @@ export const Auth = () => {
             )}
           </>)}
         </div>
-      </div>
+      </main>
     </div>
   );
 };
