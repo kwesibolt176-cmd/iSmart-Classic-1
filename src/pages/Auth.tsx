@@ -703,7 +703,7 @@ export const Auth = () => {
     <div className="auth-shell min-h-screen min-h-[100dvh]">
       <aside className="auth-visual-panel">
         <div className="auth-panel-logo" aria-label="iSmartPay">
-          iSmart<span>Pay</span>
+          <img src="/images/logo/ismartpay-on-dark.png" alt="iSmartPay" className="h-10 w-auto" />
         </div>
         <div className="auth-panel-message">
           <h2>Choose the smart way to pay.</h2>
@@ -714,9 +714,7 @@ export const Auth = () => {
         <div className="auth-card w-full max-w-[420px]">
           {/* Logo */}
           <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="text-3xl font-semibold tracking-[-0.07em] text-foreground sm:text-4xl" aria-label="iSmartPay">
-              iSmart<span className="text-primary">Pay</span>
-            </div>
+            <img src="/images/logo/ismartpay-on-light.png" alt="iSmartPay" className="h-12 w-auto" />
           </div>
 
           {/* Title */}
